@@ -1,16 +1,46 @@
-# React + Vite
+# How Did They Vote?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Enter any U.S. address and instantly see every elected official representing you — and what they've actually voted on, explained in plain English by AI.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+How Did They Vote? maps any U.S. residential address to its elected officials at the federal and state level using real legislative APIs. The key differentiator is the focus on state legislators — the people who control education, water, taxes, and zoning — who are largely invisible on existing civic tools. Each official's voting record is summarized in plain English by Claude AI, making dense legislative language accessible to anyone.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Frontend:** React, Vite, Tailwind CSS v4, React Router
 
-## Expanding the ESLint configuration
+**Backend:** FastAPI, Python, Anthropic Claude API, OpenStates API, Congress.gov API, Nominatim/OpenStreetMap (geocoding)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## How to Run
+
+### Backend
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env
+uvicorn main:app --reload --port 8000
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open http://localhost:5173
+
+## API Keys Required
+
+| Service | Free signup |
+|---|---|
+| Anthropic | console.anthropic.com |
+| OpenStates | open.pluralpolicy.com |
+| Congress.gov | api.congress.gov/sign-up |
+
+## Status
+
+V1 complete — address lookup, officials grid, Federal/State/Local filters, vote detail pages, Claude AI summaries. Next: PostgreSQL caching, Vercel + Railway deployment.
